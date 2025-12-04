@@ -1,0 +1,160 @@
+{
+  "project": "ECO-TOUR-DIRECTORY",
+  "description": "Eco Tour Directory - A Next.js directory application with Supabase backend and AI enrichment capabilities",
+  "version": "1.0.0",
+  "core": [
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_URL",
+      "description": "Supabase project API URL",
+      "format": "https://<project-id>.supabase.co",
+      "required": true,
+      "default": "https://placeholder.supabase.co",
+      "category": "database"
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "description": "Supabase anonymous/public API key",
+      "format": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "required": true,
+      "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDI0MjQyNDIsImV4cCI6MTk1ODAwMDI0Mn0.placeholder",
+      "category": "database"
+    }
+  ],
+  "optional": [
+    {
+      "name": "SUPABASE_SERVICE_ROLE_KEY",
+      "description": "Supabase service role key for admin operations",
+      "format": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "required": false,
+      "default": "",
+      "category": "database",
+      "usage": "Admin operations and seed scripts"
+    },
+    {
+      "name": "ANTHROPIC_API_KEY",
+      "description": "Anthropic API key for Claude AI model",
+      "format": "sk-ant-...",
+      "required": false,
+      "default": "",
+      "category": "ai",
+      "usage": "AI-powered product enrichment (can be disabled)",
+      "stubbed": true
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "description": "OpenAI API key (alternative to Anthropic)",
+      "format": "sk-...",
+      "required": false,
+      "default": "",
+      "category": "ai",
+      "usage": "Alternative AI provider (can be disabled)",
+      "stubbed": true
+    }
+  ],
+  "deployment": [
+    {
+      "name": "VERCEL_URL",
+      "description": "Automatically set by Vercel deployment",
+      "format": "*.vercel.app",
+      "required": false,
+      "default": "http://localhost:3000",
+      "category": "platform",
+      "auto_populated": true
+    },
+    {
+      "name": "RAILWAY_STATIC_URL",
+      "description": "Automatically set by Railway deployment",
+      "format": "*.railway.app",
+      "required": false,
+      "default": "",
+      "category": "platform",
+      "auto_populated": true
+    },
+    {
+      "name": "PORT",
+      "description": "HTTP server port",
+      "format": "3000",
+      "required": false,
+      "default": "3000",
+      "category": "platform"
+    }
+  ],
+  "required_secrets": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "NEXT_PUBLIC_SUPABASE_URL": {
+        "type": "string",
+        "pattern": "^https://[a-z0-9-]+\\.supabase\\.co$"
+      },
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY": {
+        "type": "string",
+        "minLength": 100
+      },
+      "SUPABASE_SERVICE_ROLE_KEY": {
+        "type": "string",
+        "minLength": 100
+      },
+      "ANTHROPIC_API_KEY": {
+        "type": "string",
+        "pattern": "^sk-ant-"
+      },
+      "OPENAI_API_KEY": {
+        "type": "string",
+        "pattern": "^sk-"
+      }
+    },
+    "required": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"]
+  },
+  "modules": {
+    "core": {
+      "name": "Next.js Application",
+      "secrets": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+      "description": "Core application with Supabase database integration"
+    },
+    "ai_enrichment": {
+      "name": "AI Product Enrichment",
+      "secrets": ["ANTHROPIC_API_KEY", "OPENAI_API_KEY"],
+      "description": "Optional AI-powered product tagging and enrichment",
+      "optional": true,
+      "can_stub": true,
+      "stub_method": "Disable aiEnrichmentEnabled flag in config"
+    },
+    "admin": {
+      "name": "Admin Operations",
+      "secrets": ["SUPABASE_SERVICE_ROLE_KEY"],
+      "description": "Admin dashboard and bulk data operations",
+      "optional": true
+    }
+  },
+  "stub_instructions": {
+    "ai_enrichment": {
+      "file": "app/submit/action.ts",
+      "config": "aiEnrichmentEnabled: false",
+      "description": "AI enrichment is already disabled by default. Products will be submitted without AI-generated tags/labels."
+    },
+    "supabase": {
+      "method": "Use placeholder Supabase project",
+      "description": "Create a free Supabase project at https://supabase.com and update environment variables",
+      "fallback": "Application will fail gracefully without valid Supabase credentials"
+    }
+  },
+  "deployment_notes": {
+    "railway": {
+      "buildCommand": "pnpm install && pnpm run build",
+      "startCommand": "pnpm start",
+      "required_vars": ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+      "optional_vars": ["ANTHROPIC_API_KEY", "OPENAI_API_KEY", "SUPABASE_SERVICE_ROLE_KEY"],
+      "healthcheck": "/",
+      "port": 3000
+    },
+    "vercel": {
+      "framework": "nextjs",
+      "buildCommand": "pnpm run build",
+      "outputDirectory": ".next"
+    }
+  }
+}

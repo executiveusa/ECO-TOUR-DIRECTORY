@@ -437,6 +437,28 @@ To give your directory a unique look, create a custom color theme:
 
 <div id="deploy">
 
+### Deployment Options
+
+This project supports multiple deployment platforms:
+
+#### 🚀 Railway (Recommended for Quick Start)
+
+Railway offers a zero-secrets deployment with automatic cost protection and free tier support.
+
+**Quick Deploy:**
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/executiveusa/ECO-TOUR-DIRECTORY)
+
+**Features:**
+- ✅ Free tier with $5 monthly credit
+- ✅ Automatic HTTPS
+- ✅ Cost protection guardrails
+- ✅ Auto-shutdown if limits exceeded
+- ✅ Easy migration to Coolify if needed
+
+**Complete Guide:** See [RAILWAY_DEPLOYMENT.md](./RAILWAY_DEPLOYMENT.md) for detailed instructions.
+
+#### ▲ Vercel (Original Method)
+
 1. **Create a new repository and push the project to GitHub.**
 
 2. **Go to Vercel and import the GitHub repository: [Deploy](https://vercel.com/new).**
@@ -447,9 +469,9 @@ To give your directory a unique look, create a custom color theme:
 
    - `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase API URL
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anonymous key
-   - `SUPABASE_PROJECT_ID` - Your Supabase project ID
-   - `SUPABASE_ADMIN_ID` - Admin user ID for your application
-   - Any other environment variables specific to your project setup
+   - `SUPABASE_PROJECT_ID` - Your Supabase project ID (optional)
+   - `SUPABASE_ADMIN_ID` - Admin user ID for your application (optional)
+   - `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` - For AI enrichment (optional)
 
    Here's an example of what your environment variables might look like:
 
@@ -466,7 +488,47 @@ To give your directory a unique look, create a custom color theme:
 
 5. **Access Your Live Application**
 
-   After deployment, you can access your live application through the URL provided by Vercel. Your application should now be live and ready to use.
+   After deployment, you can access your live application through the URL provided by Vercel.
+
+#### 🌊 Coolify (Self-Hosted Option)
+
+For self-hosted deployment with full control:
+
+**Complete Guide:** See [COOLIFY_SUPPORT.md](./COOLIFY_SUPPORT.md) for configuration and [COOLIFY_MIGRATION.md](./COOLIFY_MIGRATION.md) for migration steps.
+
+**Features:**
+- ✅ Full control over infrastructure
+- ✅ Self-hosted on your VPS
+- ✅ Hostinger VPN support
+- ✅ No platform vendor lock-in
+
+### Required Environment Variables
+
+All deployment platforms require:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-supabase-anon-key>
+```
+
+Optional variables (can be added later):
+```bash
+SUPABASE_SERVICE_ROLE_KEY=<for-admin-features>
+ANTHROPIC_API_KEY=<for-ai-enrichment>
+OPENAI_API_KEY=<alternative-to-anthropic>
+```
+
+### Deployment Files
+
+This repository includes pre-configured deployment files:
+
+- `.agents` - Secret requirements specification
+- `railway.toml` - Railway configuration with cost protection
+- `nixpacks.toml` - Build configuration
+- `maintenance.html` - Auto-deployed if free tier exceeded
+- `RAILWAY_DEPLOYMENT.md` - Complete Railway deployment guide
+- `COOLIFY_SUPPORT.md` - Coolify configuration guide
+- `COOLIFY_MIGRATION.md` - Step-by-step migration checklist
 
 </div>
 

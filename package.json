@@ -13,7 +13,10 @@
     "enrich": "tsx supabase/seed/src/main.ts",
     "fetch:og": "tsx supabase/seed/fetch-og-data.ts",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "integrations:check": "node scripts/stub-integrations.js --check",
+    "integrations:disable": "node scripts/stub-integrations.js --disable",
+    "integrations:enable": "node scripts/stub-integrations.js --enable"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^0.0.18",

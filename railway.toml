@@ -1,0 +1,124 @@
+# Railway Zero-Secrets Deployment Configuration
+# Generated with cost-protection guardrails
+
+[build]
+builder = "NIXPACKS"
+buildCommand = "pnpm install && pnpm run build"
+
+[deploy]
+startCommand = "pnpm start"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+# Cost Protection: Enforce minimal resources
+numReplicas = 1
+
+# Railway will auto-detect these from environment
+# but we document them here for clarity
+[env]
+# Core required variables (must be set in Railway dashboard)
+# NEXT_PUBLIC_SUPABASE_URL = "set-in-dashboard"
+# NEXT_PUBLIC_SUPABASE_ANON_KEY = "set-in-dashboard"
+
+# Optional variables (can be left unset)
+# ANTHROPIC_API_KEY = ""
+# OPENAI_API_KEY = ""
+# SUPABASE_SERVICE_ROLE_KEY = ""
+
+# Platform auto-populated
+NODE_ENV = "production"
+PORT = "3000"
+
+# Cost Guardrails Configuration
+[costProtection]
+# Force lowest tier instance
+enabled = true
+maxMonthlyCost = 5.00  # USD - Free tier limit
+alertThreshold = 3.00  # Alert at 60% of limit
+
+# Resource limits (enforce minimal usage)
+[resources]
+# Railway will use smallest available instances
+# These are target limits, not hard caps
+memory = 512  # MB - minimum viable
+cpu = 0.5     # vCPU shares - minimal allocation
+
+# Monitoring markers for usage tracking
+[monitoring]
+enabled = true
+checkInterval = 3600  # Check every hour
+usageEndpoint = "/api/health"
+
+# Auto-shutdown configuration
+[autoShutdown]
+enabled = true
+# Shutdown if any of these conditions are met:
+conditions = [
+  "free_tier_exceeded",
+  "cost_threshold_reached",
+  "manual_trigger"
+]
+# Action to take on shutdown
+onShutdown = "deploy_maintenance_page"
+maintenancePagePath = "./maintenance.html"
+
+# Deployment strategy
+[strategy]
+type = "rolling"
+# Use minimal resources during deployment
+temporaryInstances = 0
+
+# Health monitoring
+[health]
+path = "/"
+interval = 60  # seconds
+timeout = 10   # seconds
+unhealthyThreshold = 3
+healthyThreshold = 2
+
+# Fallback configuration for Coolify migration
+[fallback]
+enabled = true
+migrationDocPath = "./COOLIFY_MIGRATION.md"
+coolifyConfigPath = "./COOLIFY_SUPPORT.md"
+
+# Build optimizations for free tier
+[build.nixpacks]
+# Use minimal build resources
+installPhase = "pnpm install --frozen-lockfile"
+buildPhase = "pnpm run build"
+
+# Caching to reduce build times (save resources)
+[build.cache]
+enabled = true
+paths = [
+  ".next/cache",
+  "node_modules"
+]
+
+# Network configuration
+[network]
+# Internal port
+port = 3000
+# Publicly accessible
+public = true
+
+# Service configuration
+[service]
+name = "eco-tour-directory"
+type = "web"
+
+# Logging configuration (minimal to save storage)
+[logging]
+level = "info"
+maxSize = "10MB"
+retention = "7d"  # Keep logs for 7 days only
+
+# Notes for deployment
+# 1. Set environment variables in Railway dashboard
+# 2. Monitor usage via Railway dashboard
+# 3. If free tier exceeded, maintenance page will auto-deploy
+# 4. Migration to Coolify is pre-configured
+# 5. AI enrichment disabled by default (no API keys needed)
