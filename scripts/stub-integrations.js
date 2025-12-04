@@ -18,7 +18,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const CONFIG_FILE = path.join(__dirname, '..', 'app', 'submit', 'action.ts');
+// Configuration - can be overridden via environment variable
+const CONFIG_FILE = process.env.CONFIG_FILE || path.join(__dirname, '..', 'app', 'submit', 'action.ts');
 
 // ANSI color codes
 const colors = {
@@ -164,6 +165,9 @@ function showHelp() {
   log('  node scripts/stub-integrations.js --check');
   log('  node scripts/stub-integrations.js --disable');
   log('  node scripts/stub-integrations.js --enable\n');
+  log('Environment Variables:', 'blue');
+  log('  CONFIG_FILE   Path to config file (default: app/submit/action.ts)');
+  log('                Example: CONFIG_FILE=path/to/config.ts node scripts/stub-integrations.js\n');
 }
 
 // Main execution

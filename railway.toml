@@ -32,6 +32,9 @@ NODE_ENV = "production"
 PORT = "3000"
 
 # Cost Guardrails Configuration
+# NOTE: This section is for monitoring reference and external tooling.
+# Railway does not natively parse these fields - they serve as documentation
+# for cost monitoring tools and deployment automation scripts.
 [costProtection]
 # Force lowest tier instance
 enabled = true
@@ -52,6 +55,9 @@ checkInterval = 3600  # Check every hour
 usageEndpoint = "/api/health"
 
 # Auto-shutdown configuration
+# NOTE: This section is documentation for external monitoring systems.
+# Implement auto-shutdown using Railway CLI, webhooks, or monitoring services.
+# This is not native Railway configuration but serves as specification.
 [autoShutdown]
 enabled = true
 # Shutdown if any of these conditions are met:
@@ -79,6 +85,8 @@ unhealthyThreshold = 3
 healthyThreshold = 2
 
 # Fallback configuration for Coolify migration
+# NOTE: This section is metadata for migration tooling and documentation.
+# Not parsed by Railway - used by migration scripts and documentation.
 [fallback]
 enabled = true
 migrationDocPath = "./COOLIFY_MIGRATION.md"
