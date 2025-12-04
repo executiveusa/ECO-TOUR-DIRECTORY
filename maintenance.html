@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Tour Directory - Maintenance Mode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px 40px;
+            max-width: 600px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .status-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .status-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .status-list li {
+            padding: 8px 0;
+            color: #555;
+        }
+
+        .status-list li:before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            color: #856404;
+            margin: 0;
+        }
+
+        .contact {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .contact a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact a:hover {
+            color: #764ba2;
+        }
+
+        .timestamp {
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .icon {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🔧</div>
+        <h1>Under Maintenance</h1>
+        <p>We're updating the Eco Tour Directory to bring you an even better experience.</p>
+        
+        <div class="status">
+            <div class="status-title">Current Status:</div>
+            <ul class="status-list">
+                <li>Service temporarily paused</li>
+                <li>Free tier resource limit reached</li>
+                <li>Migration to enhanced infrastructure in progress</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <p><strong>What's happening?</strong><br>
+            Our application has reached its free tier resource allocation. We're automatically migrating to a more robust hosting solution to ensure continuous service.</p>
+        </div>
+
+        <p>This maintenance is part of our automated cost-protection system designed to prevent unexpected charges and ensure sustainable operations.</p>
+
+        <div class="contact">
+            <p><strong>Need immediate access?</strong><br>
+            Contact the repository owner at: <a href="https://github.com/executiveusa/ECO-TOUR-DIRECTORY">GitHub Repository</a></p>
+        </div>
+
+        <div class="timestamp">
+            <p>Maintenance started: <span id="datetime"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Display current date and time
+        document.getElementById('datetime').textContent = new Date().toLocaleString();
+        
+        // Optional: Auto-refresh every 30 minutes to check if service is back
+        // Longer interval reduces load on potentially resource-constrained system
+        setTimeout(function() {
+            // Only reload if the page is visible (tab is active)
+            if (!document.hidden) {
+                location.reload();
+            }
+        }, 1800000); // 30 minutes (reduced from 5 to minimize unnecessary load)
+    </script>
+</body>
+</html>

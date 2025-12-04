@@ -1,0 +1,21 @@
+# Nixpacks Configuration for Railway Deployment
+# This ensures proper build and deployment configuration
+
+[phases.setup]
+nixPkgs = ["nodejs-18_x", "pnpm"]
+
+[phases.install]
+cmds = [
+  "pnpm install --frozen-lockfile"
+]
+
+[phases.build]
+cmds = [
+  "pnpm run build"
+]
+
+[start]
+cmd = "pnpm start"
+
+[variables]
+NODE_ENV = "production"
