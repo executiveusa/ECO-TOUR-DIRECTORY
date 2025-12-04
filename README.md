@@ -5,7 +5,24 @@
 
 <br/>
 
+## 🚀 Railway Zero-Secrets Deployment Ready
 
+This repository has been enhanced with the **Railway Zero-Secrets Bootstrapper** system for instant deployment!
+
+**✅ Ready for immediate Railway deployment with:**
+- 🔒 Zero secrets required initially (Supabase credentials only)
+- 💰 Automatic cost protection (free tier optimized)
+- 🛡️ Auto-shutdown when limits exceeded
+- 📊 Built-in monitoring and maintenance mode
+- 🌊 Pre-configured Coolify migration path
+
+**Quick Deploy:**
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/executiveusa/ECO-TOUR-DIRECTORY)
+
+**📖 Complete Guide:** See [RAILWAY_ZERO_SECRETS_BOOTSTRAPPER.md](./RAILWAY_ZERO_SECRETS_BOOTSTRAPPER.md) for full documentation.
+
+<br/>
 
 <div align="center">
   <img src="https://github.com/Jordan-Gilliam/readme-assets/blob/master/cult-dir-home.png" width="85%" alt="cult-dir-home" />
